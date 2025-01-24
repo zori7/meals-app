@@ -1,16 +1,33 @@
-import {StyleSheet, Text, View} from "react-native";
+import {FlatList, StyleSheet, Text, View} from "react-native";
 import {MEALS} from "../data/dummy-data";
 import {CATEGORIES} from "../data/dummy-data";
 import {useMemo} from "react";
+import MealItem from "../components/MealItem";
 
 const MealsOverviewScreen = ({ route }) => {
     const category = useMemo(() => {
         return CATEGORIES.find((item) => item.id === route.params.id)
     }, [])
 
+    const meals = useMemo(() => {
+        return MEALS.filter((item) => item.categoryIds.includes(category.id))
+    }, [category])
+
     return (
         <View style={styles.container}>
             <Text>Category: {category.title}</Text>
+
+            {meals.length <= 0 && <Text>No data</Text>}
+
+            <FlatList
+                style={{ marginTop: 32, padding: 8 }}
+                contentContainerStyle={{ gap: 16 }}
+                data={meals}
+                renderItem={({ item }) => (
+                    <MealItem item={item} />
+                )}
+                keyExtractor={(item) => item.id}
+            />
         </View>
     )
 }
@@ -18,8 +35,15 @@ const MealsOverviewScreen = ({ route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16
-    }
+        padding: 16,
+        paddingBottom: 48
+    },
+    button: {
+        flex: 1,
+    },
+    buttonPressed: {
+        opacity: 0.5
+    },
 })
 
 export default MealsOverviewScreen

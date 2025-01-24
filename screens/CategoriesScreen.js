@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 150,
         elevation: 4,
-        shadowColor: 0.5,
+        shadowColor: '#285b8e',
         shadowOpacity: 0.3,
         shadowOffset: 8,
         shadowRadius: 4,
         margin: 8,
         paddingHorizontal: 12,
         paddingVertical: 8,
-        overflow: Platform.OS ==='android' ? 'hidden' : 'visible'
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible'
     },
     categoryText: {
         fontSize: 20,
