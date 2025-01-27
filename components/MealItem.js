@@ -1,10 +1,17 @@
 import {Image, Platform, Pressable, StyleSheet, Text, View} from "react-native";
 import {MaterialIcons} from '@expo/vector-icons'
+import {useNavigation} from "@react-navigation/native";
 
 const MealItem = ({ item }) => {
+    const { navigate } = useNavigation()
+
+    const onOpenMeal = (id) => {
+        navigate('MealDetail', { id })
+    }
+
     return (
         <View key={item.id} style={styles.container}>
-            <Pressable onPress={() => console.log(item.id)} android_ripple={{ color: '#ccc' }} style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]}>
+            <Pressable onPress={() => onOpenMeal(item.id)} android_ripple={{ color: '#ccc' }} style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]}>
                 <View style={styles.innerContainer}>
                     <Text style={styles.titleText}>{item.title}</Text>
                     <View style={styles.imageContainer}>

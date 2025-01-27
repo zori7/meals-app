@@ -1,22 +1,15 @@
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import {MEALS} from "../data/dummy-data";
-import {CATEGORIES} from "../data/dummy-data";
 import {useMemo} from "react";
 import MealItem from "../components/MealItem";
 
 const MealsOverviewScreen = ({ route }) => {
-    const category = useMemo(() => {
-        return CATEGORIES.find((item) => item.id === route.params.id)
-    }, [])
-
     const meals = useMemo(() => {
-        return MEALS.filter((item) => item.categoryIds.includes(category.id))
-    }, [category])
+        return MEALS.filter((item) => item.categoryIds.includes(route.params.id))
+    }, [])
 
     return (
         <View style={styles.container}>
-            <Text>Category: {category.title}</Text>
-
             {meals.length <= 0 && <Text>No data</Text>}
 
             <FlatList
